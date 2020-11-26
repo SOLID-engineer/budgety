@@ -48,13 +48,13 @@ class TransactionList {
 
   updateTotalExpensesPercentage = () => {
     if (total > 0) {
-      const totalExpensesPercentage = (totalExpenses / total * 100).toFixed(0);
+      const totalExpensesPercentage = (totalExpenses / totalIncome * 100).toFixed(0);
       document.querySelector("div.budget__expenses--percentage").innerText = `${totalExpensesPercentage}%`;
 
       const expensesItems = document.querySelector("div.expenses__list").children;
       Array.from(expensesItems).map(item => {
         const itemCurrentValue = item.querySelector("div.item__value").innerText.replace("- $", "")
-        const itemCurrentPercentage = (itemCurrentValue / total * 100).toFixed(0);
+        const itemCurrentPercentage = (itemCurrentValue / totalIncome * 100).toFixed(0);
         item.querySelector("div.item__percentage").innerText = `-${itemCurrentPercentage}%`;
       })
     } else {
@@ -154,7 +154,7 @@ class TransactionList {
     const itemPercentage = document.createElement("div");
     itemPercentage.className = "item__percentage";
     if (total > 0) {
-      itemPercentage.innerText = `${parseFloat(transaction.amount / total.toFixed(0) * 100).toFixed(0)}%`
+      itemPercentage.innerText = `${parseFloat(transaction.amount / totalIncome.toFixed(0) * 100).toFixed(0)}%`
     } else {
       itemPercentage.innerText = "0%";
     }
